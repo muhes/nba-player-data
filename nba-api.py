@@ -27,11 +27,15 @@ def getPlayerId(full_name):
 def get9CatStats(id):
     p_gamelog = playergamelog.PlayerGameLog(player_id = id, season = '2019')
     p_df = p_gamelog.get_data_frames()[0]
+    # this line extract all of the necessary counting stats from the sum
     p_9cat = p_df[['PTS', 'STL', 'AST', 'BLK', 'REB', 'TOV', 'FG3M']].sum()
+    # these lines get percentages
     p_9cat['FG%'] = (p_df['FGM'].sum())/(p_df['FGA'].sum())
     p_9cat['3P%'] = (p_df['FG3M'].sum())/(p_df['FG3A'].sum())
     return p_9cat
 
+# this function compares 2 players from their full name and returns boolean values on whether 
+# the first player is better than the second player in each category
 def comparePlayers(p1_full_name, p2_full_name):
     p1_id = getPlayerId(p1_full_name)
     p2_id = getPlayerId(p2_full_name)
