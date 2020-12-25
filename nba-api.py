@@ -23,6 +23,7 @@ def getPlayerId(full_name):
     player = [player for player in player_dict if player['full_name'] == full_name][0]
     return player['id']
 
+# this function grabs only the necesary stats (9 categories) for each player with the id
 def get9CatStats(id):
     p_gamelog = playergamelog.PlayerGameLog(player_id = id, season = '2019')
     p_df = p_gamelog.get_data_frames()[0]
@@ -40,9 +41,6 @@ def comparePlayers(p1_full_name, p2_full_name):
     p2_9cat = p2_9cat.to_frame()
     p1_9cat['p2'] = p2_9cat[0]
     p1_9cat['comparison'] = np.where(p1_9cat[0] > p1_9cat['p2'], 'True', 'False')
-    #p1_9cat.merge(p2_9cat)
-    #p1_9cat.append(p2_9cat)
-    #p1_9cat['comparison'] =  np.where(p1_9cat[0] == p2_9cat[0], 'True', 'False')
     return p1_9cat
 
 
