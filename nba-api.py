@@ -5,6 +5,7 @@ Created on Sat Dec 19 22:45:35 2020
 @author: muhes
 """
 import pandas as pd
+import numpy as np
 
 from nba_api.stats.static import players
 player_dict = players.get_players()
@@ -22,16 +23,28 @@ def getPlayerId(full_name):
     player = [player for player in player_dict if player['full_name'] == full_name][0]
     return player['id']
 
+def get9CatStats(id):
+    p_gamelog = playergamelog.PlayerGameLog(player_id = id, season = '2019')
+    p_df = p_gamelog.get_data_frames()[0]
+    p_9cat = p_df[['PTS', 'STL', 'AST', 'BLK', 'REB', 'TOV', 'FG3M']].sum()
+    p_9cat['FG%'] = (p_df['FGM'].sum())/(p_df['FGA'].sum())
+    p_9cat['3P%'] = (p_df['FG3M'].sum())/(p_df['FG3A'].sum())
+    return p_9cat
+
 def comparePlayers(p1_full_name, p2_full_name):
     p1_id = getPlayerId(p1_full_name)
     p2_id = getPlayerId(p2_full_name)
-    p1_gamelog = playergamelog.PlayerGameLog(player_id = p1_id, season = '2019')
-    p1_df = p1_gamelog.get_data_frames()[0]
-    p2_gamelog = playergamelog.PlayerGameLog(player_id = p2_id, season = '2019')
-    p2_df = p2_gamelog.get_data_frames()[0]
-    p1_sum = p1_df.sum()
-    p2_sum = p2_df.sum()
-    return p2_sum['PTS']
+    p1_9cat = get9CatStats(p1_id)
+    p2_9cat = get9CatStats(p2_id)
+    p1_9cat = p1_9cat.to_frame()
+    p2_9cat = p2_9cat.to_frame()
+    p1_9cat['p2'] = p2_9cat[0]
+    p1_9cat['comparison'] = np.where(p1_9cat[0] > p1_9cat['p2'], 'True', 'False')
+    #p1_9cat.merge(p2_9cat)
+    #p1_9cat.append(p2_9cat)
+    #p1_9cat['comparison'] =  np.where(p1_9cat[0] == p2_9cat[0], 'True', 'False')
+    return p1_9cat
+
 
 
     
