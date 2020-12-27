@@ -13,8 +13,15 @@ player_dict = players.get_players()
 from nba_api.stats.endpoints import playergamelog
 
 def __getPlayerId(full_name):
-    player = [player for player in player_dict if player['full_name'] == full_name][0]
-    return player['id']
+    player = [player for player in player_dict if player['full_name'] == full_name]
+    print(player)
+    #if len(player) != 0:
+    try:
+        player = player[0]
+        return player['id']
+    except:
+        print(full_name + 'not found')
+        raise Exception(full_name + ' not found')
 
 # this function grabs only the necesary stats (9 categories) for each player with the id
 def __get9CatStats(id, type):
@@ -37,11 +44,17 @@ def playerDifferentials(p1_full_name, p2_full_name, type):
     return True
 
 def tradeEvaluater():
-    #returns totals for all players in trade 
+    #returns totals for all players in trade
+    return True
+def booleanComparison(p1_9cat, p2_full_name):
+    #adds comparison
+    #return p1_9cat['comparison'] = np.where(p1_9cat[0] > p1_9cat[p2_full_name], 'True', 'False')
+    return True
     
 
 # this function compares 2 players from their full name and returns boolean values on whether 
 # the first player is better than the second player in each category
+
 def comparePlayers(p1_full_name, p2_full_name, type):
     p1_id = __getPlayerId(p1_full_name)
     p2_id = __getPlayerId(p2_full_name)
