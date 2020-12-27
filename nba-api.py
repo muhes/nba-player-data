@@ -10,14 +10,7 @@ import numpy as np
 from nba_api.stats.static import players
 player_dict = players.get_players()
 
-bron = [player for player in player_dict if player['full_name'] == 'LeBron James'][0]
-bron_id = bron['id']
-
 from nba_api.stats.endpoints import playergamelog
-
-gamelog_bron = playergamelog.PlayerGameLog(player_id = '2544', season = '2019')
-gamelog_bron_df = gamelog_bron.get_data_frames()[0]
-sum = gamelog_bron_df.sum()
 
 def __getPlayerId(full_name):
     player = [player for player in player_dict if player['full_name'] == full_name][0]
