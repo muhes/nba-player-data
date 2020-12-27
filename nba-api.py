@@ -2,7 +2,7 @@
 """
 Created on Sat Dec 19 22:45:35 2020
 
-@author: muhes
+@author: Muhes Ariyaratnam
 """
 import pandas as pd
 import numpy as np
@@ -32,8 +32,12 @@ def __get9CatStats(id, type):
     p_9cat['GP'] = len(p_df)
     return p_9cat
 
-def __totalToAvgStats(stats):
+def playerDifferentials(p1_full_name, p2_full_name, type):
+    #returns the difference in each category between 2 players
     return True
+
+def tradeEvaluater():
+    #returns totals for all players in trade 
     
 
 # this function compares 2 players from their full name and returns boolean values on whether 
