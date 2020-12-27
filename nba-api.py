@@ -19,7 +19,7 @@ def __getPlayerId(full_name):
     try:
         player = player[0]
         return player['id']
-    except:
+    except IndexError:
         print(full_name + 'not found')
         raise Exception(full_name + ' not found')
 
