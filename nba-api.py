@@ -24,7 +24,8 @@ def __getPlayerId(full_name):
         raise Exception(full_name + ' not found')
 
 # this function grabs only the necesary stats (9 categories) for each player with the id
-def __get9CatStats(id, type):
+def __get9CatStats(player_name, type):
+    p_id = __getPlayerId(player_name)
     p_gamelog = playergamelog.PlayerGameLog(player_id = id, season = '2019')
     p_df = p_gamelog.get_data_frames()[0]
     if type == 'total':
@@ -35,7 +36,7 @@ def __get9CatStats(id, type):
         p_9cat = p_df[['PTS', 'STL', 'AST', 'BLK', 'REB', 'TOV', 'FG3M']].mean()
     # these lines get percentages
     p_9cat['FG%'] = (p_df['FGM'].sum())/(p_df['FGA'].sum())
-    p_9cat['3P%'] = (p_df['FG3M'].sum())/(p_df['FG3A'].sum())
+    p_9cat['FT%'] = (p_df['FTM'].sum())/(p_df['FTA'].sum())
     p_9cat['GP'] = len(p_df)
     return p_9cat
 
@@ -43,7 +44,20 @@ def playerDifferentials(p1_full_name, p2_full_name, type):
     #returns the difference in each category between 2 players
     return True
 
-def tradeEvaluater():
+def __addPlayerToList(player):
+        player_id = __getPlayerId(player)
+        player_9cat = __get9CatStats(player_id, type)
+        team_df[player] = player_9cat
+    
+
+def tradeEvaluater(team1_list, team2_list, type):
+    team1_df = {};
+    for player in team1_list:
+        __addPlayerToList(player)
+        
+    
+        
+    
     #returns totals for all players in trade
     return True
 def booleanComparison(p1_9cat, p2_full_name):
@@ -56,11 +70,11 @@ def booleanComparison(p1_9cat, p2_full_name):
 # the first player is better than the second player in each category
 
 def comparePlayers(p1_full_name, p2_full_name, type):
-    p1_id = __getPlayerId(p1_full_name)
-    p2_id = __getPlayerId(p2_full_name)
-    p1_9cat = __get9CatStats(p1_id, type)
+    #p1_id = __getPlayerId(p1_full_name)
+    #p2_id = __getPlayerId(p2_full_name)
+    p1_9cat = __get9CatStats(p1_full_name, type)
     print(p1_9cat)
-    p2_9cat = __get9CatStats(p2_id, type)
+    p2_9cat = __get9CatStats(p2_full_name, type)
     p1_9cat = p1_9cat.to_frame()
     p2_9cat = p2_9cat.to_frame()
     p1_9cat[p2_full_name] = p2_9cat[0]
