@@ -50,21 +50,23 @@ def __addPlayerToList(player):
 
 def tradeEvaluator(team1_list, team2_list, type):
     #FINISH
-    team1_df = []
-    team2_df = []
+    iteration = 0
     for player in team1_list:
         print('yio')
-        if team1_df.empty:
+        if iteration == 0:
             team1_df = __get9CatStats(player, type)
         else:
             p_df = __get9CatStats(player, type)
             team1_df = team1_df.add(p_df)
+        iteration+= 1
+    iteration = 0
     for player in team2_list:
-        if team2_df.empty:
+         if iteration == 0:
             team2_df = __get9CatStats(player, type)
-        else:
+         else:
             p_df = __get9CatStats(player, type)
             team2_df = team1_df.add(p_df)
+         iteration+= 1
     return team1_df
         
 
