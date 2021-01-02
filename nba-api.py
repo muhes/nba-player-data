@@ -54,20 +54,29 @@ def tradeEvaluator(team1_list, team2_list, type):
     for player in team1_list:
         print('yio')
         if iteration == 0:
-            team1_df = __get9CatStats(player, type)
+            team1 = __get9CatStats(player, type)
         else:
             p_df = __get9CatStats(player, type)
-            team1_df = team1_df.add(p_df)
+            team1 = team1.add(p_df)
         iteration+= 1
     iteration = 0
     for player in team2_list:
+         print('yio')
          if iteration == 0:
-            team2_df = __get9CatStats(player, type)
+            print(iteration)
+            team2 = __get9CatStats(player, type)
          else:
             p_df = __get9CatStats(player, type)
-            team2_df = team1_df.add(p_df)
+            team2 = team2.add(p_df)
          iteration+= 1
-    return team1_df
+         #combine lists
+         #team1_df['2'] = team2_df
+    #combine['1'] = team1_df
+    combine_df = team1.to_frame()
+    #print(type(team1_df))
+    combine_df['Team 2'] = team2.to_frame()
+    combine_df.columns = ['Team 1' if x==0 else x for x in combine_df.columns]
+    return combine_df
         
 
         
@@ -91,9 +100,11 @@ def comparePlayers(p1_full_name, p2_full_name, type):
     p2_9cat = __get9CatStats(p2_full_name, type)
     p1_9cat = p1_9cat.to_frame()
     p2_9cat = p2_9cat.to_frame()
+    #combine stats
     p1_9cat[p2_full_name] = p2_9cat[0]
     p1_9cat['Better Player'] = np.where(p1_9cat[0] > p1_9cat[p2_full_name], p1_full_name, p2_full_name)
     #p1_9cat.rename(index={0: p1_full_name})
+    #rename column to player name
     p1_9cat.columns = [p1_full_name if x==0 else x for x in p1_9cat.columns]
     return p1_9cat
 
