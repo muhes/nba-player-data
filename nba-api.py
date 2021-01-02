@@ -49,10 +49,8 @@ def __addPlayerToList(player):
     
 
 def tradeEvaluator(team1_list, team2_list, type):
-    #FINISH
     iteration = 0
     for player in team1_list:
-        print('yio')
         if iteration == 0:
             team1 = __get9CatStats(player, type)
         else:
@@ -61,20 +59,16 @@ def tradeEvaluator(team1_list, team2_list, type):
         iteration+= 1
     iteration = 0
     for player in team2_list:
-         print('yio')
          if iteration == 0:
-            print(iteration)
             team2 = __get9CatStats(player, type)
          else:
             p_df = __get9CatStats(player, type)
             team2 = team2.add(p_df)
          iteration+= 1
-         #combine lists
-         #team1_df['2'] = team2_df
-    #combine['1'] = team1_df
+    #create combined dataframe
     combine_df = team1.to_frame()
-    #print(type(team1_df))
     combine_df['Team 2'] = team2.to_frame()
+    #rename column to team 1
     combine_df.columns = ['Team 1' if x==0 else x for x in combine_df.columns]
     return combine_df
         
