@@ -71,9 +71,7 @@ def tradeEvaluator(team1_list, team2_list, type):
     #rename column to team 1
     combine_df.columns = ['Team 1' if x==0 else x for x in combine_df.columns]
     return combine_df
-        
 
-        
     
     #returns totals for all players in trade
     return True
@@ -87,8 +85,6 @@ def booleanComparison(p1_9cat, p2_full_name):
 # the first player is better than the second player in each category
 
 def comparePlayers(p1_full_name, p2_full_name, type):
-    #p1_id = __getPlayerId(p1_full_name)
-    #p2_id = __getPlayerId(p2_full_name)
     p1_9cat = __get9CatStats(p1_full_name, type)
     print(p1_9cat)
     p2_9cat = __get9CatStats(p2_full_name, type)
@@ -102,15 +98,6 @@ def comparePlayers(p1_full_name, p2_full_name, type):
     p1_9cat.columns = [p1_full_name if x==0 else x for x in p1_9cat.columns]
     return p1_9cat
 
-ayton = __get9CatStats('Deandre Ayton', 'average')
-buddy = __get9CatStats('Buddy Hield', 'average')
-
-team2 = buddy.add(ayton)
-#print(team2)
-bron = __get9CatStats('LeBron James', 'average')
-cap = __get9CatStats('Clint Capela', 'average')
-team1 = bron.add(cap)
-#print(team1)
 
 
     
