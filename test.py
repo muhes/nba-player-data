@@ -14,4 +14,7 @@ class TestEvaluator(unittest.TestCase):
         result = getPlayerId('LeBron James')
         self.assertEqual(result, 2544)
         
+if __name__ == '__main__':
+    unittest.main()
+        
 
