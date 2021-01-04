@@ -16,6 +16,7 @@ def __getPlayerId(full_name):
     player = [player for player in player_dict if player['full_name'] == full_name]
     try:
         player = player[0]
+        print(player['id'])
         return player['id']
     except IndexError:
         print(full_name + 'not found')
