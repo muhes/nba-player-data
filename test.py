@@ -25,6 +25,10 @@ class TestEvaluator(unittest.TestCase):
     def testAverageComparisonPlayer2(self):
         result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'average', 2019)
         self.assertEqual(result['Kyrie Irving']['BLK'], 0.500000)
+        
+    def testAverageBetterPlayer1(self):
+        result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'average', 2019)
+        self.assertEqual(result['Better Player']['BLK'], 'LeBron James')
 if __name__ == '__main__':
     unittest.main()
         
