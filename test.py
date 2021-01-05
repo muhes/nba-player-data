@@ -17,7 +17,14 @@ class TestEvaluator(unittest.TestCase):
     def testTotalComparisonPlayer2(self):
         result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'total', 2019)
         self.assertEqual(result['Kyrie Irving']['STL'], 27.000000)
+    
+    def testAverageComparisonPlayer1(self):
+        result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'average', 2019)
+        self.assertEqual(result['LeBron James']['AST'], 10.208955223880597)
         
+    def testAverageComparisonPlayer2(self):
+        result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'average', 2019)
+        self.assertEqual(result['Kyrie Irving']['BLK'], 0.500000)
 if __name__ == '__main__':
     unittest.main()
         
