@@ -23,9 +23,9 @@ def __getPlayerId(full_name):
         raise Exception(full_name + ' not found')
 
 # this function grabs only the necesary stats (9 categories) for each player with the id
-def __get9CatStats(player_name, type):
+def __get9CatStats(player_name, type, season):
     p_id = __getPlayerId(player_name)
-    p_gamelog = playergamelog.PlayerGameLog(player_id = p_id, season = '2020' )
+    p_gamelog = playergamelog.PlayerGameLog(player_id = p_id, season = season )
     p_df = p_gamelog.get_data_frames()[0]
     if type == 'total':
     # this line extract all of the necessary counting stats from the sum
@@ -49,21 +49,21 @@ def __addPlayerToList(player):
         team_df[player] = player_9cat
     
 
-def tradeEvaluator(team1_list, team2_list, type):
+def tradeEvaluator(team1_list, team2_list, type, season):
     iteration = 0
     for player in team1_list:
         if iteration == 0:
-            team1 = __get9CatStats(player, type)
+            team1 = __get9CatStats(player, type, season)
         else:
-            p_df = __get9CatStats(player, type)
+            p_df = __get9CatStats(player, type, season)
             team1 = team1.add(p_df)
         iteration+= 1
     iteration = 0
     for player in team2_list:
          if iteration == 0:
-            team2 = __get9CatStats(player, type)
+            team2 = __get9CatStats(player, type, season)
          else:
-            p_df = __get9CatStats(player, type)
+            p_df = __get9CatStats(player, type, season)
             team2 = team2.add(p_df)
          iteration+= 1
     #create combined dataframe
@@ -85,10 +85,9 @@ def booleanComparison(p1_9cat, p2_full_name):
 # this function compares 2 players from their full name and returns boolean values on whether 
 # the first player is better than the second player in each category
 
-def comparePlayers(p1_full_name, p2_full_name, type):
-    p1_9cat = __get9CatStats(p1_full_name, type)
-    print(p1_9cat)
-    p2_9cat = __get9CatStats(p2_full_name, type)
+def comparePlayers(p1_full_name, p2_full_name, type, season):
+    p1_9cat = __get9CatStats(p1_full_name, type, season)
+    p2_9cat = __get9CatStats(p2_full_name, type, season)
     p1_9cat = p1_9cat.to_frame()
     p2_9cat = p2_9cat.to_frame()
     #combine stats

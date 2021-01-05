@@ -6,13 +6,13 @@ Created on Fri Jan  1 23:46:44 2021
 """
 
 import unittest
-import nba-evaluator
+import nba_evaluator
 
 class TestEvaluator(unittest.TestCase):
     
-    def testGetPlayerId(self):
-        result = getPlayerId('LeBron James')
-        self.assertEqual(result, 2544)
+    def testTotalComparison(self):
+        result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'total', 2019)
+        self.assertEqual(result['LeBron James']['PTS'], 1698.000000)
         
 if __name__ == '__main__':
     unittest.main()
