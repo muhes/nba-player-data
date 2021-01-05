@@ -10,9 +10,13 @@ import nba_evaluator
 
 class TestEvaluator(unittest.TestCase):
     
-    def testTotalComparison(self):
+    def testTotalComparisonPlayer1(self):
         result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'total', 2019)
         self.assertEqual(result['LeBron James']['PTS'], 1698.000000)
+        
+    def testTotalComparisonPlayer2(self):
+        result = nba_evaluator.comparePlayers('LeBron James', 'Kyrie Irving', 'total', 2019)
+        self.assertEqual(result['Kyrie Irving']['STL'], 27.000000)
         
 if __name__ == '__main__':
     unittest.main()
