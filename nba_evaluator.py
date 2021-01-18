@@ -93,6 +93,8 @@ def comparePlayers(p1_full_name, p2_full_name, type, season):
     #combine stats
     p1_9cat[p2_full_name] = p2_9cat[0]
     p1_9cat['Better Player'] = np.where(p1_9cat[0] > p1_9cat[p2_full_name], p1_full_name, p2_full_name)
+    #Ternary operator to get player with fewer turnoovers
+    p1_9cat['Better Player']['TOV'] = p1_full_name if (p1_9cat['Better Player']['TOV'] == p2_full_name) else p2_full_name
     #p1_9cat.rename(index={0: p1_full_name})
     #rename column to player name
     p1_9cat.columns = [p1_full_name if x==0 else x for x in p1_9cat.columns]
