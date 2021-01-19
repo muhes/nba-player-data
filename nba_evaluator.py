@@ -71,6 +71,8 @@ def tradeEvaluator(team1_list, team2_list, type, season):
     combine_df['Team 2'] = team2.to_frame()
     #rename column to team 1
     combine_df.columns = ['Team 1' if x==0 else x for x in combine_df.columns]
+    combine_df['Better Player'] = np.where(combine_df['Team 1'] > combine_df['Team 2'], 'Team 1', 'Team 2')
+    combine_df['Better Player']['TOV'] = 'Team 1' if (combine_df['Better Player']['TOV'] == 'Team 2') else 'Team 2'
     return combine_df
 
     
